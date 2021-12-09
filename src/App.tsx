@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Emoji } from "./models/Emoji";
 import axios from "axios";
-import { IoSearch } from "react-icons/io5";
+import SearchBar from "./components/SearchBar";
+import EmojiList from "./components/EmojiList";
 
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>();
-  const [search, setSearch] = useState("")
+  const [emojisToShow, setEmojisToShow] = useState<Emoji[]>();
   const [filteredEmojis, setFilteredEmojis] = useState<Emoji[]>()
+  const [search, setSearch] = useState("")
+
   useEffect(() => {
     axios
       .get(
@@ -17,6 +20,16 @@ function App() {
         setEmojis(response.data);
       });
   }, []);
+  
+  useEffect(() => {
+    if(filteredEmojis) {
+      let spliced = [...filteredEmojis].splice(0,50)
+      setEmojisToShow(spliced)
+    } else if(emojis) {
+      let spliced = [...emojis].splice(0,50)
+      setEmojisToShow(spliced)
+    }
+  }, [emojis, filteredEmojis])
 
   useEffect(() => {
     if(search) {
@@ -32,49 +45,36 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
 
+
+  const showMoreEmojis = () => {
+    if(filteredEmojis && emojisToShow) {
+      if(emojisToShow.length < filteredEmojis.length) {
+        let moreEmojis = emojisToShow.concat([...filteredEmojis].splice(emojisToShow.length,50))
+        setEmojisToShow(moreEmojis);
+      }
+    } else if(emojis && emojisToShow) {
+      if(emojisToShow.length < emojis.length) {
+        let moreEmojis = emojisToShow.concat([...emojis].splice(emojisToShow.length,50))
+        setEmojisToShow(moreEmojis);
+      }
+    }
+  }
+
+  const handleScroll = (e: any) => {
+    const bottom = e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight + 100;
+    if(bottom) {
+      showMoreEmojis()
+    }
+  }
+
   return (
     <div className="App">
       <header className="headerSection">
-        <h2>SalesChamp Coding Challenge</h2>
+        <h2>Emoji Search</h2>
       </header>
       <section className="mainSection">
-        <div className="searchBar">
-          <div className="searchBox">
-            <IoSearch/>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="searchField"
-              autoComplete="off"
-              type="text"
-              name="search"
-              placeholder="Search for an emoji using a keyword"
-            />
-          </div>
-        </div>
-        <section className="emojisSection">
-          <div className="row">
-            {filteredEmojis ?
-              filteredEmojis.map((emoji) => {
-                return (
-                  <div title={emoji.title} key={emoji.title} className="col-4 col-md-3 col-lg-2 emoji">
-                    {emoji.symbol}
-                  </div>
-                );
-              })
-              :
-            emojis ?
-              emojis.map((emoji) => {
-                return (
-                  <div title={emoji.title} key={emoji.title} className="col-4 col-md-3 col-lg-2 emoji">
-                    {emoji.symbol}
-                  </div>
-                );
-              })
-            : ""
-            }
-          </div>
-        </section>
+        <SearchBar search={search} setSearch={setSearch} />
+        <EmojiList emojisToShow={emojisToShow} handleScroll={handleScroll} />
       </section>
     </div>
   );
