@@ -35,7 +35,7 @@ function App() {
     if(search) {
       var filtered = emojis?.filter((emoji) => {
         let keywords = emoji.keywords.split(" ")
-        let match = keywords.find(element => element.includes(search))
+        let match = keywords.find(element => element.includes(search.toLowerCase()))
         return match && match.length > 0
       })
       setFilteredEmojis(filtered)
