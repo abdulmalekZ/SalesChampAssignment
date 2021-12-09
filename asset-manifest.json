@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/SalesChampAssignment/static/css/main.8e8b41f2.chunk.css",
+    "main.js": "/SalesChampAssignment/static/js/main.8f4b43a6.chunk.js",
+    "main.js.map": "/SalesChampAssignment/static/js/main.8f4b43a6.chunk.js.map",
+    "runtime-main.js": "/SalesChampAssignment/static/js/runtime-main.f7c14bac.js",
+    "runtime-main.js.map": "/SalesChampAssignment/static/js/runtime-main.f7c14bac.js.map",
+    "static/css/2.8c0e6b67.chunk.css": "/SalesChampAssignment/static/css/2.8c0e6b67.chunk.css",
+    "static/js/2.3086867c.chunk.js": "/SalesChampAssignment/static/js/2.3086867c.chunk.js",
+    "static/js/2.3086867c.chunk.js.map": "/SalesChampAssignment/static/js/2.3086867c.chunk.js.map",
+    "static/js/3.a6059b51.chunk.js": "/SalesChampAssignment/static/js/3.a6059b51.chunk.js",
+    "static/js/3.a6059b51.chunk.js.map": "/SalesChampAssignment/static/js/3.a6059b51.chunk.js.map",
+    "index.html": "/SalesChampAssignment/index.html",
+    "static/css/2.8c0e6b67.chunk.css.map": "/SalesChampAssignment/static/css/2.8c0e6b67.chunk.css.map",
+    "static/css/main.8e8b41f2.chunk.css.map": "/SalesChampAssignment/static/css/main.8e8b41f2.chunk.css.map",
+    "static/js/2.3086867c.chunk.js.LICENSE.txt": "/SalesChampAssignment/static/js/2.3086867c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7c14bac.js",
+    "static/css/2.8c0e6b67.chunk.css",
+    "static/js/2.3086867c.chunk.js",
+    "static/css/main.8e8b41f2.chunk.css",
+    "static/js/main.8f4b43a6.chunk.js"
+  ]
+}
