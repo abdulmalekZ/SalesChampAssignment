@@ -99,7 +99,7 @@ function App() {
       <header className="headerSection">
         <h2>Emoji Search</h2>
       </header>
-      {!loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <section className="mainSection">
