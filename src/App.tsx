@@ -47,11 +47,30 @@ function App() {
   useEffect(() => {
     // if indeed there was text in the search field, then filter emojis based on whether the search text is contained in one of the keyword values of each emoji
     if (search) {
+      // first we need to detect if search input consists of one word or two or more words
+      let searchInput = search.trim().toLowerCase();
+      let isMultipleWords = false
+      // we do that by checking the existance of the space character after trimming
+      if(searchInput.indexOf(' ') !== -1) {
+        isMultipleWords = true
+      }
       var filtered = emojis?.filter((emoji) => {
         let keywords = emoji.keywords ? emoji.keywords.split(" ") : [];
-        let match = keywords.find((element) =>
-          element.includes(search.toLowerCase())
-        );
+        let match = keywords.find((keyword) => {
+          // if search input is two or more words, then we need to check both words for any matches in the keywords
+          if(isMultipleWords) {
+            let found = false;
+            for(let searchWord of searchInput.split(' ')) {
+              if(keyword.includes(searchWord)) {
+                found = true;
+                break
+              }
+            }
+            return found
+          } else {
+            return keyword.includes(searchInput)
+          }
+        });
         return match && match.length > 0;
       });
       setFilteredEmojis(filtered);
