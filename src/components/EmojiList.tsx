@@ -1,23 +1,29 @@
-import { Emoji } from "../models/Emoji";
+import { EmojiListProps } from "../models/EmojiListProps";
+import Emoji from "./Emoji";
 
-interface EmojiListProps {
-    handleScroll: (e: any) => void;
-    emojisToShow: Emoji[] | undefined
-}
-
-const EmojiList: React.FC<EmojiListProps> = ({ handleScroll, emojisToShow }) => {
+const EmojiList: React.FC<EmojiListProps> = ({
+  handleScroll,
+  emojisToShow,
+}) => {
   return (
-    <section className="emojisSection" onScroll={handleScroll}>
-    <div className="row">
-    {emojisToShow && emojisToShow.map((emoji) => {
-          return (
-            <div title={emoji.title} key={emoji.title} className="col-4 col-md-3 col-lg-2 emoji">
-              {emoji.symbol}
-            </div>
-          );
-        })}
-    </div>
-  </section>
+    <section
+      data-testid={"emojiList"}
+      className="emojisSection"
+      onScroll={handleScroll}
+    >
+      <div className="row">
+        {emojisToShow &&
+          emojisToShow.map((emoji) => {
+            return (
+              <Emoji
+                key={emoji.title}
+                title={emoji.title}
+                symbol={emoji.symbol}
+              />
+            );
+          })}
+      </div>
+    </section>
   );
 };
 

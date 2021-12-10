@@ -1,13 +1,9 @@
 import { IoSearch } from "react-icons/io5";
-
-interface SearchBarProps {
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-}
+import { SearchBarProps } from "../models/SearchBarProps";
 
 const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch }) => {
   return (
-    <div className="searchBar">
+    <div data-testid="searchBar" className="searchBar">
       <div className="searchBox">
         <IoSearch />
         <input
