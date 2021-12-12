@@ -94,3 +94,23 @@
   width: 80px;
   height: 80px;
 }
+
+.errorSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.errorSection svg{
+  height: 60px;
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.errorSection p{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0;
+}

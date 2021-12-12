@@ -5,9 +5,11 @@ import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import EmojiList from "./components/EmojiList";
 import Loader from "./components/Loader";
+import ErrorView from "./components/ErrorView";
 
 function App() {
   // initializing states using react hooks and using appropriate types
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [emojis, setEmojis] = useState<EmojiProps[]>();
   const [emojisToShow, setEmojisToShow] = useState<EmojiProps[]>();
@@ -23,8 +25,13 @@ function App() {
         `https://raw.githubusercontent.com/SalesChamp/emoji-list/main/emoji-list.json`
       )
       .then((response) => {
+        setError(false);
         setLoading(false);
         setEmojis(response.data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(true);
       });
   }, []);
 
@@ -49,26 +56,26 @@ function App() {
     if (search) {
       // first we need to detect if search input consists of one word or two or more words
       let searchInput = search.trim().toLowerCase();
-      let isMultipleWords = false
+      let isMultipleWords = false;
       // we do that by checking the existance of the space character after trimming
-      if(searchInput.indexOf(' ') !== -1) {
-        isMultipleWords = true
+      if (searchInput.indexOf(" ") !== -1) {
+        isMultipleWords = true;
       }
       var filtered = emojis?.filter((emoji) => {
         let keywords = emoji.keywords ? emoji.keywords.split(" ") : [];
         let match = keywords.find((keyword) => {
           // if search input is two or more words, then we need to check both words for any matches in the keywords
-          if(isMultipleWords) {
+          if (isMultipleWords) {
             let found = false;
-            for(let searchWord of searchInput.split(' ')) {
-              if(keyword.includes(searchWord)) {
+            for (let searchWord of searchInput.split(" ")) {
+              if (keyword.includes(searchWord)) {
                 found = true;
-                break
+                break;
               }
             }
-            return found
+            return found;
           } else {
-            return keyword.includes(searchInput)
+            return keyword.includes(searchInput);
           }
         });
         return match && match.length > 0;
@@ -120,6 +127,8 @@ function App() {
       </header>
       {loading ? (
         <Loader />
+      ) : error ? (
+        <ErrorView />
       ) : (
         <section className="mainSection">
           <SearchBar search={search} setSearch={setSearch} />
